@@ -1,0 +1,23 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1745765491
+icon.svg::CompressedTexture2D/CompressedTexture2D::5654691150271862351::1745671768::1745671774::1::::<><><>0<>0<>c66a5734576c8b8429b03311f68add92<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
+::res://assets/::1745762573
+ChatGPT Image 26. Apr. 2025, 17_58_11.png::CompressedTexture2D/CompressedTexture2D::816889743792362139::1745683092::1745683247::1::::<><><>0<>0<>5d255834c30da1efd18baa9566038a55<>res://.godot/imported/ChatGPT Image 26. Apr. 2025, 17_58_11.png-2f806e61160bf3a9fad5292bffd37c6c.ctex::
+licensed-image (1).jpg::CompressedTexture2D/CompressedTexture2D::1532599543658782323::1745683406::1745683408::1::::<><><>0<>0<>47c41aea16075caa0832598b42f6cbe7<>res://.godot/imported/licensed-image (1).jpg-5ff3d89d7bdf1b7a9ade36b0b39b7d69.ctex::
+::res://assets/sounds/::1745765044
+GAMEPLAY_music_kulluh_Rise_004.mp3::AudioStreamMP3/AudioStreamMP3::1707897239493850259::1745762681::1745765044::1::::<><><>0<>0<>1f11dd8bf9a86138e78ffa7448049c03<>res://.godot/imported/GAMEPLAY_music_kulluh_Rise_004.mp3-17819bc271fc552eb53a4224bc859b52.mp3str::
+MAINMENU_music_zapsplat_good_times_funky_chilled_edit.mp3::AudioStreamMP3/AudioStreamMP3::6678864338797575362::1745762553::1745765044::1::::<><><>0<>0<>2335d7a7deb0e41ea412d7d6138bc916<>res://.godot/imported/MAINMENU_music_zapsplat_good_times_funky_chilled_edit.mp3-4244b638a5d60525be0eecd97f1da03a.mp3str::
+PAUSE_music_kulluh_Star_Chasers_005.mp3::AudioStreamMP3/AudioStreamMP3::2053873856881086323::1745762611::1745765044::1::::<><><>0<>0<>e4c52a3771c6e64cc060776e45401a4e<>res://.godot/imported/PAUSE_music_kulluh_Star_Chasers_005.mp3-a56c74c96eec4bba3d94998f4d0ad69b.mp3str::
+::res://scenes/::1745765044
+global_data.tscn::PackedScene::2674009050268919175::1745765044::0::1::::<><><>0<>0<><>::
+menu.tscn::PackedScene::8931456604979887365::1745765044::0::1::::<><><>0<>0<><>::uid://cotxvxplusyax::::res://scripts/menu.gd<>uid://tl42icxdmd22::::res://scripts/setup_popup.gd<>uid://swo0eogwy4ix::::res://scripts/temp_popup.gd
+root.tscn::PackedScene::5343462735012909104::1745765044::0::1::::<><><>0<>0<><>::uid://b4nqe1rbi0r4r::::res://scripts/root.gd<>uid://d0ip1x5wcvh0p::::res://scenes/menu.tscn<>uid://bmlag182wkpqs::::res://scenes/world.tscn<>uid://qthvlqmvjbie::::res://scripts/input_manager.gd
+world.tscn::PackedScene::3251407095249792830::1745765044::0::1::::<><><>0<>0<><>::uid://cp1ffufxa2aoj::::res://scripts/world.gd
+::res://scripts/::1745761144
+global_data.gd::GDScript::1027521174223390241::1745756617::0::1::::<>Node<><>0<>0<><>::
+input_manager.gd::GDScript/GDScript::1162707799204387504::1745754035::0::1::::<>Control<><>0<>0<><>::
+menu.gd::GDScript::5796143579887793895::1745761144::0::1::::<>Control<><>0<>0<><>::
+root.gd::GDScript/GDScript::4449714066984608471::1745753472::0::1::::<>Node<><>0<>0<><>::
+setup_popup.gd::GDScript::1358105617968842285::1745756552::0::1::::<>Window<><>0<>0<><>::
+temp_popup.gd::GDScript::1309710410843902331::1745761117::0::1::::<>Window<><>0<>0<><>::
+world.gd::GDScript/GDScript::5879661416732700253::1745674096::0::1::::<>Node2D<><>0<>0<><>::

@@ -1,0 +1,198 @@
+[gd_scene load_steps=2 format=3 uid="uid://d0ip1x5wcvh0p"]
+
+[ext_resource type="Script" uid="uid://cotxvxplusyax" path="res://scripts/menu.gd" id="1_yqeox"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yqeox")
+
+[node name="CenterContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 30
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="HelpButton" type="Button" parent="CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "?"
+
+[node name="SettingsButton" type="Button" parent="CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 10
+text = "stgs"
+
+[node name="SlotVBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/SlotVBoxContainer"]
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="PlayerSlot0" type="Button" parent="CenterContainer/SlotVBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(450, 100)
+layout_mode = 2
+text = "click to join"
+
+[node name="PlayerSlot1" type="Button" parent="CenterContainer/SlotVBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(450, 100)
+layout_mode = 2
+text = "click to join"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="CenterContainer/SlotVBoxContainer"]
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="PlayerSlot2" type="Button" parent="CenterContainer/SlotVBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(450, 100)
+layout_mode = 2
+text = "click to join"
+
+[node name="PlayerSlot3" type="Button" parent="CenterContainer/SlotVBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(450, 100)
+layout_mode = 2
+text = "click to join"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="CenterContainer/SlotVBoxContainer"]
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="PlayerSlot4" type="Button" parent="CenterContainer/SlotVBoxContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(450, 100)
+layout_mode = 2
+text = "click to join"
+
+[node name="PlayerSlot5" type="Button" parent="CenterContainer/SlotVBoxContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(450, 100)
+layout_mode = 2
+text = "click to join"
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="CenterContainer/SlotVBoxContainer"]
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="PlayerSlot6" type="Button" parent="CenterContainer/SlotVBoxContainer/HBoxContainer5"]
+custom_minimum_size = Vector2(450, 100)
+layout_mode = 2
+text = "click to join"
+
+[node name="PlayerSlot7" type="Button" parent="CenterContainer/SlotVBoxContainer/HBoxContainer5"]
+custom_minimum_size = Vector2(450, 100)
+layout_mode = 2
+text = "click to join"
+
+[node name="HBoxContainerBottom" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+theme_override_constants/margin_bottom = 50
+
+[node name="StartButton" type="Button" parent="HBoxContainerBottom"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 8
+text = "start game"
+
+[node name="SetupPopup" type="Popup" parent="."]
+auto_translate_mode = 1
+size = Vector2i(210, 374)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SetupPopup"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 5
+
+[node name="NameField" type="LineEdit" parent="SetupPopup/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+placeholder_text = "enter name"
+alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="SetupPopup/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
+columns = 2
+
+[node name="ItemKeyButton" type="Button" parent="SetupPopup/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+text = "item"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="SetupPopup/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="LeftKeyButton" type="Button" parent="SetupPopup/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+text = "left"
+
+[node name="RightKeyButton" type="Button" parent="SetupPopup/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+text = "right"
+
+[node name="CancelButton" type="Button" parent="SetupPopup/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+text = "cancel"
+
+[node name="ConfirmButton" type="Button" parent="SetupPopup/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+text = "confirm"
+
+[node name="CenterContainer" type="CenterContainer" parent="SetupPopup"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HelpPopup" type="Popup" parent="."]
+auto_translate_mode = 1
+
+[node name="SettingsPopup" type="Popup" parent="."]
+auto_translate_mode = 1
+
+[connection signal="pressed" from="CenterContainer/HBoxContainer/HelpButton" to="." method="_on_help_button_pressed"]
+[connection signal="pressed" from="HBoxContainerBottom/StartButton" to="." method="_on_start_button_pressed"]

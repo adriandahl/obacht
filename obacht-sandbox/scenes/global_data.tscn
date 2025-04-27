@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://bedkskmq8884r"]
+
+[sub_resource type="GDScript" id="GDScript_3ka84"]
+script/source = "extends Node
+
+var preset_colors = [
+	Color(1, 0, 0),       # Red
+	Color(0, 0, 1),       # Blue
+	Color(0, 1, 0),       # Green
+	Color(1, 1, 0),       # Yellow
+	Color(1, 0, 1),       # Magenta
+	Color(0, 1, 1),       # Cyan
+	Color(1, 0.5, 0),     # Orange
+	Color(0.5, 0, 0.5)    # Violet
+]
+"
+
+[node name="Node" type="Node"]
+script = SubResource("GDScript_3ka84")

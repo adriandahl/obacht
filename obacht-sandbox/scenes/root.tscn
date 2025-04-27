@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://cieobypb1xq61"]
+
+[ext_resource type="Script" uid="uid://b4nqe1rbi0r4r" path="res://scripts/root.gd" id="1_j5px3"]
+[ext_resource type="PackedScene" uid="uid://d0ip1x5wcvh0p" path="res://scenes/menu.tscn" id="2_sqa0i"]
+[ext_resource type="PackedScene" uid="uid://bmlag182wkpqs" path="res://scenes/world.tscn" id="3_jh1ax"]
+[ext_resource type="Script" uid="uid://qthvlqmvjbie" path="res://scripts/input_manager.gd" id="4_kycxp"]
+
+[node name="Root" type="Node"]
+script = ExtResource("1_j5px3")
+
+[node name="InputLayer" type="CanvasLayer" parent="."]
+
+[node name="InputManager" type="Control" parent="InputLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("4_kycxp")
+metadata/_edit_use_anchors_ = true
+
+[node name="Menu" parent="." instance=ExtResource("2_sqa0i")]
+
+[node name="World" parent="." instance=ExtResource("3_jh1ax")]
