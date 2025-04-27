@@ -82,9 +82,11 @@ func _handle_key_capture(event):
 func _on_start_button_pressed():
 	print("Start game pressed!")
 	# Here you would load your main scene
-	#get_tree().change_scene_to_file("res://scenes/world.tscn")
+	for p in Global.player_configs:
+		if p != null:
+			get_tree().change_scene_to_file("res://scenes/world.tscn")
+			break
 
-# Helper function to find correct player button
 func get_slot_button(index: int) -> Button:
 	match index:
 		0:
@@ -106,14 +108,8 @@ func get_slot_button(index: int) -> Button:
 		_:
 			return null
 
-
 func _on_help_button_pressed() -> void:
 	$HelpPopup.popup_centered()
 
-
 func _on_settings_button_pressed() -> void:
 	$SettingsPopup.popup_centered()
-
-
-func _on_color_button_pressed(extra_arg_0: int) -> void:
-	pass # Replace with function body.

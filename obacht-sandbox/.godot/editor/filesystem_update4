@@ -6,3 +6,9 @@ res://scenes/global_data.tscn
 res://scenes/player.tscn
 res://scripts/world.gd
 res://scripts/global_data.gd
+res://scripts/menu.gd
+res://scripts/player.gd
+res://scenes/pause_menu.tscn
+res://scripts/pause_menu.gdshader
+res://scripts/pause_menu.gd
+res://scripts/input_manager.gd

@@ -1,6 +1,7 @@
 extends Control
 
 @export var menu: Node
+@export var pause_menu: Node
 
 func _ready():
 	self.mouse_filter = Control.MOUSE_FILTER_IGNORE

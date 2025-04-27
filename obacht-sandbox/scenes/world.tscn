@@ -1,12 +1,23 @@
-[gd_scene load_steps=2 format=3 uid="uid://bmlag182wkpqs"]
+[gd_scene load_steps=3 format=3 uid="uid://bmlag182wkpqs"]
 
 [ext_resource type="Script" uid="uid://cp1ffufxa2aoj" path="res://scripts/world.gd" id="1_nnsk1"]
+[ext_resource type="PackedScene" uid="uid://cqs56fynyhmlq" path="res://scenes/pause_menu.tscn" id="2_rwgxs"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_nnsk1")
+
+[node name="TrailCanvas" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+process_mode = 3
+visible = false
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("2_rwgxs")]
