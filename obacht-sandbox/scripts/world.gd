@@ -4,6 +4,7 @@ extends Node2D
 
 var players = []
 var gap_chance
+var gap_buffer
 
 var trail_image: Image
 var trail_texture: ImageTexture
@@ -18,6 +19,9 @@ func _ready():
 	trail_image.fill(Color8(0, 0, 0, 255))
 	trail_texture = ImageTexture.create_from_image(trail_image)
 	canvas.texture = trail_texture
+	
+	gap_buffer = 50
+	
 	spawn_players()
 	
 func spawn_players():
@@ -63,10 +67,13 @@ func _process(delta):
 
 		# try for gap
 		player.gap_length -= 1
+		player.gap_cooldown -= 1
 		if player.gap_length > 0:
 			continue
-		if randf() < gap_chance:  # e.g. 0.05 = 5% chance to create a tiny gap
+		if player.gap_cooldown <= 0 and randf() < gap_chance:  # e.g. 0.05 = 5% chance to create a tiny gap
+			
 			player.gap_length = randi_range(12, 50)
+			player.gap_cooldown = player.gap_length + gap_buffer
 			continue
 		
 		

@@ -15,6 +15,7 @@ var is_gap := false 	# holds whether gap is currently being drawn
 var gap_chance = 0.006 	# chance chance of triggering gap per iteration
 var gap_length = 0		# remaining iterations for drawing gap.
 						# when gap is triggered, pick random gap length in [12,30]
+var gap_cooldown
 var color
 
 var trail_thickness
@@ -27,7 +28,7 @@ func setup(config):
 	trail_thickness = 3
 	speed = 70
 	rotation_speed = 2.5
-	gap_length
+	gap_cooldown = 50
 
 	color = config["color"]
 
