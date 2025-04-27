@@ -1,6 +1,7 @@
 extends Node
 
 var current_slot_index = -1
+var slot_locks = {}
 
 var player_configs = []
 

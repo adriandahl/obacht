@@ -1,0 +1,8 @@
+res://scenes/root.tscn
+res://scripts/temp_popup.gd
+res://scenes/world.tscn
+res://scenes/menu.tscn
+res://scenes/global_data.tscn
+res://scenes/player.tscn
+res://scripts/world.gd
+res://scripts/global_data.gd

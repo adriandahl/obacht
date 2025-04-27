@@ -10,6 +10,8 @@ extends Window
 
 @onready var key_hint = $MarginContainer/VBoxContainer/HBoxContainer2/MarginContainer/VBoxContainer/KeyHint
 
+var lock_icon = preload("res://assets/lock.png")
+
 var player_index: int = Global.current_slot_index
 var awaiting_key: String = ""
 var temp_config: Dictionary = {}
@@ -65,7 +67,7 @@ func refresh_color_buttons(selected_index: int = -1):
 
 		for j in range(Global.player_configs.size()):
 			if j == Global.current_slot_index:
-				continue  # 🛡️ Ignore current player editing themselves
+				continue  # Ignore current player editing themselves
 
 			var config = Global.player_configs[j]
 			if config != null and config.get("color") == Global.player_colors[i]:
@@ -74,34 +76,56 @@ func refresh_color_buttons(selected_index: int = -1):
 
 		# If color is taken, gray it out and disable
 		if color_taken:
+			#button.disabled = true
+			#style.bg_color = style.bg_color.darkened(0.5)  # Make it visibly grayed
+			#style.border_color = Color.TRANSPARENT
+			
 			button.disabled = true
-			style.bg_color = style.bg_color.darkened(0.5)  # Make it visibly grayed
-			style.border_color = Color.TRANSPARENT
+			style.bg_color = desaturate_color(style.bg_color, 0.5)
+			
+			if not button.has_node("LockIcon"):
+				var lock_sprite = TextureRect.new()
+				lock_sprite.name = "LockIcon"
+				lock_sprite.texture = lock_icon
+				lock_sprite.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+				lock_sprite.stretch_mode = TextureRect.STRETCH_KEEP_CENTERED
+				lock_sprite.anchor_left = 0.5
+				lock_sprite.anchor_top = 0.5
+				lock_sprite.anchor_right = 0.5
+				lock_sprite.anchor_bottom = 0.5
+				lock_sprite.modulate = Color(1, 1, 1, 0.7)
+				lock_sprite.scale = Vector2(0.07, 0.07)
+
+				button.add_child(lock_sprite)
 		else:
 			button.disabled = false
+			# 🔥 If lock still exists, remove it
+			if button.has_node("LockIcon"):
+				button.get_node("LockIcon").queue_free()
+
+			# Selection highlight
 			if i == selected_index:
 				style.border_color = Color.WHITE
-				style.set_border_width(SIDE_TOP, 4)
-				style.set_border_width(SIDE_BOTTOM, 4)
-				style.set_border_width(SIDE_LEFT, 4)
-				style.set_border_width(SIDE_RIGHT, 4)
+				style.set_border_width_all(4)
 			else:
 				style.border_color = Color.TRANSPARENT
-				style.set_border_width(SIDE_TOP, 0)
-				style.set_border_width(SIDE_BOTTOM, 0)
-				style.set_border_width(SIDE_LEFT, 0)
-				style.set_border_width(SIDE_RIGHT, 0)
-
+				style.set_border_width_all(0)
+		
 		# Apply styles to all states
 		button.add_theme_stylebox_override("normal", style)
 		button.add_theme_stylebox_override("hover", style)
 		button.add_theme_stylebox_override("pressed", style)
 
+func desaturate_color(color: Color, amount: float) -> Color:
+	var grayscale = color.r * 0.299 + color.g * 0.587 + color.b * 0.114
+	var gray_color = Color(grayscale, grayscale, grayscale)
+	return color.lerp(gray_color, amount)
 
 func _on_color_button_pressed(index):
 	if index >= 0 and index < Global.player_colors.size():
 		temp_config["color"] = Global.player_colors[index]
 		highlight_selected_color(index)
+		print("highlghit")
 
 func _on_key_button_pressed(key):
 	# 0 = left
@@ -123,6 +147,7 @@ func open_with_config():
 	var config = Global.player_configs[Global.current_slot_index]
 	if config != null:
 		temp_config = config.duplicate()
+		temp_config["color"]=config["color"]
 	else:
 		temp_config = {
 			"name": "",
@@ -145,7 +170,16 @@ func open_with_config():
 	item_key_button.text = OS.get_keycode_string(temp_config["item"])
 	right_key_button.text = OS.get_keycode_string(temp_config["right"])
 	
-	refresh_color_buttons()
+		# 🛠 Find selected color index
+	var selected_color_index = -1
+	for i in range(Global.player_colors.size()):
+		if Global.player_colors[i] == temp_config["color"]:
+			selected_color_index = i
+			break
+
+	refresh_color_buttons(selected_color_index)
+	
+	#refresh_color_buttons()
 	popup_centered()
 
 func _input(event):
