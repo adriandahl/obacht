@@ -1,0 +1,104 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwxkjru6mx4la"]
+
+[ext_resource type="Script" uid="uid://f2apybdevmj" path="res://scripts/player_slot.gd" id="1_m0w6y"]
+
+[node name="PlayerSlot" type="Control"]
+z_index = 1
+z_as_relative = false
+custom_minimum_size = Vector2(450, 100)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_m0w6y")
+
+[node name="Backlight" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -27.0
+offset_bottom = 27.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="PlayerName" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Player"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="KeyDisplay" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LeftKey" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer/KeyDisplay"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+text = "L"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ItemKey" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer/KeyDisplay"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+text = "I"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RightKey" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer/KeyDisplay"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+text = "R"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="KeyHints" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LeftHint" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer/KeyHints"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "l"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ItemHint" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer/KeyHints"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "i"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RightHint" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer/KeyHints"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "r"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayerHead" type="TextureRect" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4

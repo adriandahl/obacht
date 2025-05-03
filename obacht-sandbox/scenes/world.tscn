@@ -33,7 +33,7 @@ offset_bottom = 23.0
 
 [node name="Label0" type="Label" parent="GameUI/ScoreboardBox"]
 layout_mode = 2
-text = "plazer"
+text = "player: 0"
 
 [node name="Label1" type="Label" parent="GameUI/ScoreboardBox"]
 layout_mode = 2

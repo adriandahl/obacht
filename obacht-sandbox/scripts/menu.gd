@@ -5,6 +5,7 @@ extends Control
 @onready var start_button = $CenterContainer/HBoxContainerBottom/StartButton
 #@onready var setup_popup = $SetupPopup
 @onready var setup_popup = $TempPopup
+@onready var player_slot_scene = preload("res://scenes/player_slot.tscn")
 
 
 var awaiting_key: String = ""
@@ -14,10 +15,7 @@ var player_configs = Global.player_configs
 var preset_colors = Global.player_colors
 
 func _ready():
-	setup_popup.setup_confirmed.connect(_on_player_setup_confirmed)
-	# Hide the popups initially
-	#print(GlobalData.testNum)
-	setup_popup.hide()
+	#setup_popup.hide()
 	player_configs.resize(8)
 	player_configs.fill(null)
 	
@@ -49,12 +47,50 @@ func _on_player_slot_pressed(slot_index):
 	setup_popup.refresh_color_buttons()
 	setup_popup.open_with_config()
 
-func _on_player_setup_confirmed(index: int) -> void:
-	var button = get_slot_button(Global.current_slot_index)
-	print(index)
-	if button:
-		button.text = str(Global.player_configs[Global.current_slot_index]["name"])
-		Global.current_slot_index = -1
+func show_player_slot_overlay(index: int):
+	var config = Global.player_configs[index]
+	if not config:
+		return
+
+	#var container = get_slot_container(index)
+	var container = get_slot_button(index)
+
+	
+	if not container:
+		print("ERR: NO CONTAINER")
+		return
+	container.text = ""
+
+	# Remove old overlay if it exists
+	var old = container.get_node_or_null("PlayerSlotOverlay")
+	if old:
+		old.queue_free()
+
+	var overlay = player_slot_scene.instantiate()
+	overlay.name = "PlayerSlotOverlay"
+	
+	overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE  # Allow interaction to pass through
+	overlay.custom_minimum_size = get_slot_button(index).size
+
+	# Expand to match
+	overlay.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	overlay.size_flags_vertical = Control.SIZE_EXPAND_FILL
+
+	container.add_child(overlay)
+	overlay.setup(config)
+
+func get_slot_container(index: int) -> HBoxContainer:
+	match index:
+		0, 1:
+			return $CenterContainer/SlotVBoxContainer/HBoxContainer2
+		2, 3:
+			return $CenterContainer/SlotVBoxContainer/HBoxContainer3
+		4, 5:
+			return $CenterContainer/SlotVBoxContainer/HBoxContainer4
+		6, 7:
+			return $CenterContainer/SlotVBoxContainer/HBoxContainer5
+		_:
+			return null
 
 func _handle_key_capture(event):
 	print("gotem!")
@@ -90,7 +126,7 @@ func _on_start_button_pressed():
 func get_slot_button(index: int) -> Button:
 	match index:
 		0:
-			return $CenterContainer/SlotVBoxContainer/HBoxContainer2.get_child(0)
+			return $CenterContainer/SlotVBoxContainer/HBoxContainer2.get_child(index)
 		1:
 			return $CenterContainer/SlotVBoxContainer/HBoxContainer2.get_child(1)
 		2:

@@ -5,5 +5,5 @@ res://scenes/menu.tscn
 res://scenes/global_data.tscn
 res://scenes/player.tscn
 res://scenes/pause_menu.tscn
-res://scripts/game_ui.gd
+res://scenes/player_slot.tscn
 res://scripts/world.gd

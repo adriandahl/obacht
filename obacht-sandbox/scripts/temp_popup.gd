@@ -1,3 +1,5 @@
+# TODO: rename to setup_popup
+
 extends Window
 
 @onready var name_field = $MarginContainer/VBoxContainer/NameEdit
@@ -5,8 +7,8 @@ extends Window
 @onready var left_key_button = $MarginContainer/VBoxContainer/HBoxContainer2/MarginContainer/VBoxContainer/MarginContainer/KeyGrid/LeftKeyButton
 @onready var right_key_button = $MarginContainer/VBoxContainer/HBoxContainer2/MarginContainer/VBoxContainer/MarginContainer/KeyGrid/RightKeyButton
 @onready var item_key_button = $MarginContainer/VBoxContainer/HBoxContainer2/MarginContainer/VBoxContainer/MarginContainer/KeyGrid/ItemKeyButton
-@onready var confirm_button = $VBoxContainer/ButtonGrid/ConfirmButton
-@onready var cancel_button = $VBoxContainer/ButtonGrid/CancelButton
+#@onready var confirm_button = $VBoxContainer/ButtonGrid/ConfirmButton
+#@onready var cancel_button = $VBoxContainer/ButtonGrid/CancelButton
 
 @onready var key_hint = $MarginContainer/VBoxContainer/HBoxContainer2/MarginContainer/VBoxContainer/KeyHint
 
@@ -227,7 +229,10 @@ func _on_confirm_button_pressed():
 		
 	Global.player_configs[Global.current_slot_index] = temp_config
 	
-	print(temp_config)
+	# 💡 Trigger overlay drawing on the menu
+	var menu = get_tree().root.get_node("Root/Menu")
+	if menu:
+		menu.show_player_slot_overlay(Global.current_slot_index)
 	
 	emit_signal("setup_confirmed", player_index)  # Notify menu that setup is done
 	hide()
