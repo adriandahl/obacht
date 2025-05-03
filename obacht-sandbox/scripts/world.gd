@@ -11,6 +11,7 @@ var trail_texture: ImageTexture
 @onready var canvas = $TrailCanvas
 
 func _ready():
+	$GameUI.show()
 	var size = get_viewport().get_visible_rect().size
 	var image_size = Vector2i(size.x, size.y)
 
@@ -30,7 +31,10 @@ func spawn_players():
 			continue
 		
 		var player = player_scene.instantiate()
+		player.name = config["name"]
 		add_child(player)
+		
+		Global.scoreboard[str(player.name)] = 0
 		
 		player.position = Vector2( # TODO: create valid spawn positions maybe with grid
 			randi() % 800 + 100,
@@ -42,11 +46,12 @@ func spawn_players():
 		gap_chance = player.gap_chance
 
 func _process(delta):
+	var alive_cnt = 0
 	for player in players:
 		if not player.is_alive:
-			# TODO: handle player death
+			# ignore dead players
 			continue
-		
+		alive_cnt += 1
 		var pos = player.position
 		var x = int(pos.x)
 		var y = int(pos.y)
@@ -61,8 +66,9 @@ func _process(delta):
 		if check_x >= 0 and check_y >= 0 and check_x < trail_image.get_width() and check_y < trail_image.get_height():
 			var pixel_color = trail_image.get_pixel(check_x, check_y)
 			if pixel_color != Color(0, 0, 0, 1):  # If not black
-				print("Collision for player at", pos)
+				#print("Collision for player at", pos)
 				player.is_alive = false
+				update_scoreboard()
 				continue
 
 		# try for gap
@@ -75,12 +81,8 @@ func _process(delta):
 			player.gap_length = randi_range(12, 50)
 			player.gap_cooldown = player.gap_length + gap_buffer
 			continue
-		
-		
 
-		
-
-		# Bounds check
+		# Bounds check # TODO: adjust to actual play zone (without scoreboard)
 		if x >= 0 and y >= 0 and x < trail_image.get_width() and y < trail_image.get_height():
 			var r = player.trail_thickness
 			for dx in range(-r, r + 1):
@@ -91,7 +93,16 @@ func _process(delta):
 						if px >= 0 and py >= 0 and px < trail_image.get_width() and py < trail_image.get_height():
 							trail_image.set_pixel(px, py, player.color)
 
-			
-
+	# TODO: implement round & winning logic
+	#if alive_cnt < 1:
+		# round over
 	# After all drawing, update the texture
 	trail_texture.update(trail_image)
+
+func update_scoreboard():
+	for player in players:
+		if player.is_alive:
+			Global.scoreboard[player.name] += 10
+	$GameUI.refresh_labels()
+	print("Scores updated!")
+	print(str(Global.scoreboard))

@@ -12,7 +12,7 @@ var rotation_speed
 var is_alive
 
 var is_gap := false 	# holds whether gap is currently being drawn 
-var gap_chance = 0.006 	# chance chance of triggering gap per iteration
+var gap_chance = 0.002 	# chance chance of triggering gap per iteration
 var gap_length = 0		# remaining iterations for drawing gap.
 						# when gap is triggered, pick random gap length in [12,30]
 var gap_cooldown

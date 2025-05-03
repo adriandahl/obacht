@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bmlag182wkpqs"]
+[gd_scene load_steps=4 format=3 uid="uid://bmlag182wkpqs"]
 
 [ext_resource type="Script" uid="uid://cp1ffufxa2aoj" path="res://scripts/world.gd" id="1_nnsk1"]
+[ext_resource type="Script" uid="uid://cnd8ouqw5ggp4" path="res://scripts/game_ui.gd" id="2_4wyf3"]
 [ext_resource type="PackedScene" uid="uid://cqs56fynyhmlq" path="res://scenes/pause_menu.tscn" id="2_rwgxs"]
 
 [node name="World" type="Node2D"]
@@ -10,14 +11,47 @@ script = ExtResource("1_nnsk1")
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 process_mode = 3
 visible = false
 
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("2_rwgxs")]
+
+[node name="GameUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_4wyf3")
+
+[node name="ScoreboardBox" type="VBoxContainer" parent="GameUI"]
+layout_mode = 1
+offset_right = 1.0
+offset_bottom = 23.0
+
+[node name="Label0" type="Label" parent="GameUI/ScoreboardBox"]
+layout_mode = 2
+text = "plazer"
+
+[node name="Label1" type="Label" parent="GameUI/ScoreboardBox"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="GameUI/ScoreboardBox"]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="GameUI/ScoreboardBox"]
+layout_mode = 2
+
+[node name="Label4" type="Label" parent="GameUI/ScoreboardBox"]
+layout_mode = 2
+
+[node name="Label5" type="Label" parent="GameUI/ScoreboardBox"]
+layout_mode = 2
+
+[node name="Label6" type="Label" parent="GameUI/ScoreboardBox"]
+layout_mode = 2
+
+[node name="Label7" type="Label" parent="GameUI/ScoreboardBox"]
+layout_mode = 2

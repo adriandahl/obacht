@@ -5,6 +5,8 @@ var slot_locks = {}
 
 var player_configs = []
 
+var scoreboard = {}
+
 var player_colors: Array = [
 	Color(1, 0, 0),    # Red
 	Color(0, 0, 1),    # Blue

@@ -1,9 +1,9 @@
+Label
+VBoxContainer
 CanvasLayer
 AnimationPlayer
 AnimationTree
 Button
-Label
-VBoxContainer
 PanelContainer
 ColorRect
 TextureRect

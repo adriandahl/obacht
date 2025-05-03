@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://d0ip1x5wcvh0p"]
+[gd_scene load_steps=3 format=3 uid="uid://d0ip1x5wcvh0p"]
 
 [ext_resource type="Script" uid="uid://cotxvxplusyax" path="res://scripts/menu.gd" id="1_yqeox"]
-[ext_resource type="Script" uid="uid://tl42icxdmd22" path="res://scripts/setup_popup.gd" id="2_con2f"]
 [ext_resource type="Script" uid="uid://swo0eogwy4ix" path="res://scripts/temp_popup.gd" id="3_mhnvy"]
 
 [node name="Menu" type="Control"]
@@ -132,77 +131,6 @@ layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 8
 text = "start game"
-
-[node name="SetupPopup" type="Popup" parent="."]
-auto_translate_mode = 1
-size = Vector2i(210, 374)
-script = ExtResource("2_con2f")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="SetupPopup"]
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="SetupPopup/HBoxContainer"]
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="SetupPopup"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 5
-
-[node name="NameField" type="LineEdit" parent="SetupPopup/VBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-placeholder_text = "enter name"
-alignment = 1
-
-[node name="GridContainer" type="GridContainer" parent="SetupPopup/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_constants/h_separation = 5
-theme_override_constants/v_separation = 5
-columns = 2
-
-[node name="ColorPickerButton" type="ColorPickerButton" parent="SetupPopup/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-
-[node name="ItemKeyButton" type="Button" parent="SetupPopup/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-text = "item"
-
-[node name="LeftKeyButton" type="Button" parent="SetupPopup/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-text = "left"
-
-[node name="RightKeyButton" type="Button" parent="SetupPopup/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-text = "right"
-
-[node name="CancelButton" type="Button" parent="SetupPopup/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-text = "cancel"
-
-[node name="ConfirmButton" type="Button" parent="SetupPopup/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-text = "confirm"
-
-[node name="CenterContainer" type="CenterContainer" parent="SetupPopup"]
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="GridContainer" type="GridContainer" parent="SetupPopup"]
-offset_right = 40.0
-offset_bottom = 40.0
 
 [node name="SettingsPopup" type="Popup" parent="."]
 auto_translate_mode = 1
