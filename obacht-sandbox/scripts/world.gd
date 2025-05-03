@@ -45,31 +45,42 @@ func spawn_players():
 		players.append(player)
 		gap_chance = player.gap_chance
 
-func _process(delta):
-	var alive_cnt = 0
+func _process(_delta):
+	#var alive_cnt = 0 # TODO: implement round logic
 	for player in players:
 		if not player.is_alive:
 			# ignore dead players
 			continue
-		alive_cnt += 1
+		#alive_cnt += 1
 		var pos = player.position
 		var x = int(pos.x)
 		var y = int(pos.y)
 		
-		var forward_vector = Vector2.RIGHT.rotated(player.rotation) * player.speed
-		forward_vector = forward_vector.normalized()
-		var check_pos = player.position + forward_vector * (player.trail_thickness + 2)  # +2 to be safe
+				# Predictive collision check
+		var forward_vector = Vector2.RIGHT.rotated(player.rotation).normalized()
+		var check_pos = player.position + forward_vector * (player.trail_thickness * 2.5)
+
 		var check_x = int(check_pos.x)
 		var check_y = int(check_pos.y)
-		# TODO: check if pixel is enough or if we need area
-		
-		if check_x >= 0 and check_y >= 0 and check_x < trail_image.get_width() and check_y < trail_image.get_height():
-			var pixel_color = trail_image.get_pixel(check_x, check_y)
-			if pixel_color != Color(0, 0, 0, 1):  # If not black
-				#print("Collision for player at", pos)
-				player.is_alive = false
-				update_scoreboard()
-				continue
+
+		var r = player.trail_thickness
+		var collided = false
+		for dx in range(-r, r + 1):
+			for dy in range(-r, r + 1):
+				if dx * dx + dy * dy <= r * r:
+					var px = check_x + dx
+					var py = check_y + dy
+					if px >= 0 and py >= 0 and px < trail_image.get_width() and py < trail_image.get_height():
+						if trail_image.get_pixel(px, py) != Color(0, 0, 0, 1):
+							collided = true
+							break
+			if collided:
+				break
+
+		if collided:
+			player.is_alive = false
+			update_scoreboard()
+			continue
 
 		# try for gap
 		player.gap_length -= 1
@@ -84,7 +95,6 @@ func _process(delta):
 
 		# Bounds check # TODO: adjust to actual play zone (without scoreboard)
 		if x >= 0 and y >= 0 and x < trail_image.get_width() and y < trail_image.get_height():
-			var r = player.trail_thickness
 			for dx in range(-r, r + 1):
 				for dy in range(-r, r + 1):
 					if dx * dx + dy * dy <= r * r:
