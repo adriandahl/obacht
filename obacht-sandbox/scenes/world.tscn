@@ -16,6 +16,8 @@ process_mode = 3
 visible = false
 
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("2_rwgxs")]
+z_index = 1
+z_as_relative = false
 
 [node name="GameUI" type="Control" parent="."]
 layout_mode = 3

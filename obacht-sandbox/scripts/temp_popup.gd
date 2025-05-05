@@ -127,7 +127,6 @@ func _on_color_button_pressed(index):
 	if index >= 0 and index < Global.player_colors.size():
 		temp_config["color"] = Global.player_colors[index]
 		highlight_selected_color(index)
-		print("highlghit")
 
 func _on_key_button_pressed(key):
 	# 0 = left

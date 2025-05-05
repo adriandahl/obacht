@@ -13,7 +13,7 @@ config_version=5
 config/name="Obacht Sandbox"
 run/main_scene="uid://cieobypb1xq61"
 config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://bqrjtdvjyxjk1"
 
 [autoload]
 

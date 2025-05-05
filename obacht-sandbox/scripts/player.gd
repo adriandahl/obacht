@@ -17,22 +17,25 @@ var gap_length = 0		# remaining iterations for drawing gap.
 						# when gap is triggered, pick random gap length in [12,30]
 var gap_cooldown
 var color
-
 var trail_thickness
+var last_trail_pos
+var drawn_pixels: Array = []
+
 
 func setup(config):
 	left_key = config["left"]
 	right_key = config["right"]
 	item_key = config["item"]
+	color = config["color"]
 	is_alive = true
 	trail_thickness = 3
 	speed = 70
 	rotation_speed = 2.5
 	gap_cooldown = 50
-
-	color = config["color"]
+	last_trail_pos = position
 
 func _process(delta):
+	last_trail_pos = position
 	if not is_alive:
 		return
 	if Input.is_key_pressed(left_key):

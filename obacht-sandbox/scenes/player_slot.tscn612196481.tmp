@@ -6,7 +6,6 @@
 [node name="PlayerSlot" type="Control"]
 z_index = 1
 z_as_relative = false
-clip_contents = true
 custom_minimum_size = Vector2(450, 100)
 layout_mode = 3
 anchors_preset = 8
