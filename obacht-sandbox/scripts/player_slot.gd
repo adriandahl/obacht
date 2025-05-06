@@ -36,7 +36,7 @@ func setup(config: Dictionary):
 	backlight.texture = preload("res://assets/player_glow.png")
 	
 	# stay centered while stretching
-	backlight.scale = Vector2(3.0, 3.0)
+	backlight.scale = Vector2(2.5, 2.5)
 	#head_sprite.centered = true
 	backlight.modulate = Color(player_color.r, player_color.g, player_color.b, 0.2)
 
@@ -46,13 +46,12 @@ func setup(config: Dictionary):
 	head_sprite.position = Vector2(min_x / 2, min_y - 30)
 
 func _draw():
-	if trail_length  < 160:
+	if trail_length  < 200:
 		trail_length += 1
 	var trail_radius = 4
-	
 	var origin = head_sprite.position + Vector2(-4, 12)
 	var spacing = 1  # Distance between blocks
-	var gap_spacing = 150
+	var gap_spacing = 250
 	var gap_width = 40
 	#var time_offset = int(Time.get_ticks_msec() / 20)  # animation seed
 
@@ -64,11 +63,12 @@ func _draw():
 		if posmod(i - gap_offset, gap_spacing) < gap_width:
 			continue  # simulate gap
 
-		var alpha = 1.0 - float(i) / trail_length
+		var alpha = 1.0 - float(i) / 200
 		var faded_color = player_color
 		faded_color.a = alpha
 
-		draw_rect(Rect2(point_pos - Vector2(trail_radius, trail_radius), Vector2(trail_radius * 2, trail_radius * 2)), faded_color)
+		#draw_rect(Rect2(point_pos - Vector2(trail_radius, trail_radius), Vector2(trail_radius * 2, trail_radius * 2)), faded_color)
+		draw_circle(point_pos, trail_radius, faded_color)
 
 
 func _process(delta):

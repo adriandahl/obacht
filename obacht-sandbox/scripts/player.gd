@@ -1,6 +1,6 @@
 extends Area2D
 
-@onready var sprite = $Sprite2D
+#@onready var sprite = $Sprite2D
 
 var left_key
 var right_key
@@ -18,7 +18,7 @@ var gap_length = 0		# remaining iterations for drawing gap.
 var gap_cooldown
 var color
 var trail_thickness
-var last_trail_pos
+var last_pos
 var drawn_pixels: Array = []
 
 
@@ -28,14 +28,15 @@ func setup(config):
 	item_key = config["item"]
 	color = config["color"]
 	is_alive = true
-	trail_thickness = 3
+	trail_thickness = 3.5
 	speed = 70
 	rotation_speed = 2.5
 	gap_cooldown = 50
-	last_trail_pos = position
+	last_pos = position
 
 func _process(delta):
-	last_trail_pos = position
+	#$Sprite2D.rotation = 0
+	last_pos = position
 	if not is_alive:
 		return
 	if Input.is_key_pressed(left_key):

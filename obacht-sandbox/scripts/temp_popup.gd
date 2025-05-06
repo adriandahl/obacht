@@ -133,7 +133,6 @@ func _on_key_button_pressed(key):
 	# 1 = item
 	# 2 = right
 	key_hint.show()
-	print(key)
 	match key:
 		0:
 			awaiting_key = "left"

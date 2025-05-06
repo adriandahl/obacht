@@ -8,6 +8,16 @@ var gap_buffer # remaining iterations until next chance for gap
 
 var trail_image: Image
 var trail_texture: ImageTexture
+
+@onready var sprite_texture = preload("res://assets/player_head.png")
+
+# player hitbox
+var check_offsets = [
+			Vector2(4,  1), Vector2(4,  0), Vector2(4, -1),
+		Vector2(3.5,  2), 						 Vector2(3.5, -2),
+]
+var debug_points: Array = [] # visualize hitbox
+
 @onready var canvas = $TrailCanvas
 
 func _ready():
@@ -19,6 +29,7 @@ func _ready():
 	trail_image.fill(Color8(0, 0, 0, 255))
 	trail_texture = ImageTexture.create_from_image(trail_image)
 	canvas.texture = trail_texture
+
 	
 	gap_buffer = 50
 	
@@ -48,96 +59,75 @@ func is_forward_collision(player, trail_image: Image) -> bool:
 	var trail_color = Color(0, 0, 0, 1)
 	var pos = player.position
 	var angle = player.rotation
-	var r = player.trail_thickness
+	var direction = Vector2.RIGHT.rotated(angle).normalized()
+	#var forward_offset = direction * 1
 
-	# Only check if player has moved far enough
-	if player.last_trail_pos.distance_to(player.position) < 2.0:
-		return false
-	#print("asdasd")
-
-	var check_offsets = [
-		Vector2(-2, -4), Vector2(-1, -4), Vector2(0, -4), Vector2(1, -4), Vector2(2, -4),
-		Vector2(-3, -3), Vector2(3, -3),
-		Vector2(-4, -2), Vector2(4, -2)
-	]
+	debug_points.clear()
 
 	for offset in check_offsets:
 		var rotated = offset.rotated(angle)
+		#var world_pos = pos + forward_offset + rotated
 		var world_pos = pos + rotated
+		debug_points.append(world_pos)
 		var px = int(world_pos.x)
 		var py = int(world_pos.y)
 
 		if px >= 0 and py >= 0 and px < trail_image.get_width() and py < trail_image.get_height():
-			var test_point = Vector2(px, py)
-
-			var is_fresh = false
-			for p in player.drawn_pixels:
-				if test_point.distance_squared_to(p) <= r * r:
-					is_fresh = true
-					break
-
-			if is_fresh:
-				continue  # skip this offset
-
-			if trail_image.get_pixel(px, py) != trail_color:
+			if trail_image.get_pixel(px, py) != Color.BLACK:
 				return true
-
+	
 	return false
 
 
 func _process(delta):
+	queue_redraw()
 	for player in players:
 		if not player.is_alive:
 			continue
-
-		var pos = player.position
-		var x = int(pos.x)
-		var y = int(pos.y)
-		var last_x = int(player.last_trail_pos.x)
-		var last_y = int(player.last_trail_pos.y)
 
 		# === Predictive collision check ===
 		if is_forward_collision(player, trail_image):
 			player.is_alive = false
 			update_scoreboard()
 			continue
- 
+
 		# === Trail Gap Logic ===
 		player.gap_length -= 1
 		player.gap_cooldown -= 1
+		var in_gap = false
 		if player.gap_length > 0:
-			player.last_trail_pos = player.position
-			continue
-		if player.gap_cooldown <= 0 and randf() < gap_chance:
+			in_gap = true
+		elif player.gap_cooldown <= 0 and randf() < gap_chance:
 			player.gap_length = randi_range(12, 50)
 			player.gap_cooldown = player.gap_length + gap_buffer
-			player.last_trail_pos = player.position
-			continue
+			in_gap = true
 
-		# === Interpolated Trail Drawing ===
-		var last_pos = player.last_trail_pos
+		var r = player.trail_thickness
+		var last_pos = player.last_pos
 		var current_pos = player.position
 		var distance = last_pos.distance_to(current_pos)
 		var step = 1.0
-
+		var trail_color = player.color
 		
-		var r = player.trail_thickness
-		for t in range(0, int(distance), step):
-			var interp_pos = last_pos.lerp(current_pos, t / distance)
-			var px = int(interp_pos.x)
-			var py = int(interp_pos.y)
+		if not in_gap:
+			for t in range(0, int(distance), step):
+				var interp_pos = last_pos.lerp(current_pos, t / distance)
+				var px = int(interp_pos.x)
+				var py = int(interp_pos.y)
 
-			if px >= 0 and py >= 0 and px < trail_image.get_width() and py < trail_image.get_height():
-				for dx in range(-r, r + 1):
-					for dy in range(-r, r + 1):
-						if dx * dx + dy * dy <= r * r:
-							var tx = px + dx
-							var ty = py + dy
-							if tx >= 0 and ty >= 0 and tx < trail_image.get_width() and ty < trail_image.get_height():
-								trail_image.set_pixel(tx, ty, player.color)
-								player.drawn_pixels.append(Vector2(tx, ty))
+				if px >= 0 and py >= 0 and px < trail_image.get_width() and py < trail_image.get_height():
+					for dx in range(-r, r + 1):
+						for dy in range(-r, r + 1):
+							if dx * dx + dy * dy <= r * r:
+								var tx = px + dx
+								var ty = py + dy
+								if tx >= 0 and ty >= 0 and tx < trail_image.get_width() and ty < trail_image.get_height():
+									trail_image.set_pixel(tx, ty, trail_color)
+									player.drawn_pixels.append(Vector2(tx, ty))
+			
 
-		player.last_trail_pos = player.position
+
+		player.last_pos = player.position
 		player.drawn_pixels.clear()
 
 	trail_texture.update(trail_image)
@@ -147,5 +137,10 @@ func update_scoreboard():
 		if player.is_alive:
 			Global.scoreboard[player.name] += 10
 	$GameUI.refresh_labels()
-	print("Scores updated!")
-	print(str(Global.scoreboard))
+
+#func _draw():
+	#for point in debug_points:
+		#draw_circle(point, 1, Color(1, 0, 1))  # bright purple
+	
+	#for player in players:
+		#draw_texture(sprite_texture, player.position - sprite_texture.get_size() / 2)

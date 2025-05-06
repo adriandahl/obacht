@@ -30,6 +30,13 @@ func _ready():
 		var style = StyleBoxFlat.new()
 		style.bg_color = color
 		button.add_theme_stylebox_override("normal", style)
+		
+	#var screen_size = DisplayServer.screen_get_size()
+	#if screen_size.x >= 2560 and screen_size.y >= 1440:
+		#self.scale = Vector2(2, 2)
+		#print("2K+ screen detected. Scaling up x2.")
+	#else:
+		#print("not caled")
 
 func _on_player_slot_pressed(slot_index):
 	print(slot_index)
