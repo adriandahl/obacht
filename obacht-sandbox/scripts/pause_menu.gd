@@ -1,4 +1,6 @@
 extends Control
+@onready var menu = $Menu
+@onready var world = $World
 
 func _ready():
 	$AnimationPlayer.play("RESET")
@@ -22,7 +24,7 @@ func _on_continue_pressed() -> void:
 
 func _on_quit_to_menu_pressed() -> void:
 	resume()
-	get_tree().change_scene_to_file("res://scenes/start_menu.tscn")
+	# TODO: handle 
 
 
 func _unhandled_input(event: InputEvent) -> void:

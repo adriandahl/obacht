@@ -1,12 +1,10 @@
-res://scenes/root.tscn
-res://scripts/pause_menu.gdshader
 res://scenes/world.tscn
+res://scripts/pause_menu.gdshader
+res://scenes/root.tscn
 res://scenes/menu.tscn
 res://scenes/global_data.tscn
 res://scenes/player.tscn
 res://scenes/pause_menu.tscn
 res://scenes/player_slot.tscn
-res://scripts/world.gd
-res://scripts/player.gd
-res://scripts/temp_popup.gd
-res://scripts/player_slot.gd
+res://scripts/root.gd
+res://scripts/pause_menu.gd

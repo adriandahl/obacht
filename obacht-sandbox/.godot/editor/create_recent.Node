@@ -1,3 +1,4 @@
+AnimationPlayer
 Control
 MarginContainer
 CanvasLayer
@@ -6,7 +7,6 @@ TextureRect
 VBoxContainer
 Label
 HBoxContainer
-AnimationPlayer
 AnimationTree
 Button
 PanelContainer
