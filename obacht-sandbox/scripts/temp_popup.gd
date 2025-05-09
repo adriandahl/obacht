@@ -217,6 +217,7 @@ func _input(event):
 		key_hint.hide()
 
 func _on_confirm_button_pressed():
+	# Check for missing fields first
 	temp_config["name"] = name_field.text
 	if temp_config["name"] == "" \
 	or temp_config["color"] == Color.WHITE \
@@ -225,16 +226,39 @@ func _on_confirm_button_pressed():
 	or temp_config["right"] == null:
 		print("data missing")
 		return
+
+	# Check for uniqueness
+	for i in range(Global.player_configs.size()):
+		if i == Global.current_slot_index:
+			continue  # Skip current slot (when editing existing config)
 		
+		var config = Global.player_configs[i]
+		if config == null:
+			continue
+
+		if config["name"] == temp_config["name"]:
+			print("Duplicate name!")
+			return
+
+		var keys = [config["left"], config["item"], config["right"]]
+		var temp_keys = [temp_config["left"], temp_config["item"], temp_config["right"]]
+
+		for key in temp_keys:
+			if key in keys:
+				print("Duplicate key!")
+				return
+
+	# Save config if all checks passed
 	Global.player_configs[Global.current_slot_index] = temp_config
-	
-	# 💡 Trigger overlay drawing on the menu
+
+	# Show visual overlay
 	var menu = get_tree().root.get_node("Root/Menu")
 	if menu:
 		menu.show_player_slot_overlay(Global.current_slot_index)
-	
-	emit_signal("setup_confirmed", player_index)  # Notify menu that setup is done
+
+	emit_signal("setup_confirmed", player_index)
 	hide()
+
 	
 signal setup_confirmed(player_index: int)
 
