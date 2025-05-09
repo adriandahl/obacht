@@ -8,3 +8,5 @@ res://scenes/player.tscn
 res://scenes/pause_menu.tscn
 res://scenes/player_slot.tscn
 res://scripts/root.gd
+res://scripts/player.gd
+res://scripts/global_data.gd

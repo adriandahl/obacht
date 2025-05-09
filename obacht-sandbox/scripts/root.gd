@@ -82,10 +82,47 @@ func _on_quit_to_menu():
 	world.trail_texture.update(world.trail_image)
 
 func _unhandled_input(event):
-	if event.is_action_pressed("ui_cancel") and world.visible:
-		if get_tree().paused:
-			_on_resume_requested()
+	if event.is_action_pressed("load_debug_players"):
+		load_debug_players()
+		print("Debug players loaded.")
+	if event.is_action_pressed("ui_cancel"):
+		if world.visible:
+			if get_tree().paused:
+				_on_resume_requested()
+			else:
+				anim_player.play("blur")
+				pause_menu.show()
+				get_tree().paused = true
 		else:
-			anim_player.play("blur")
-			pause_menu.show()
-			get_tree().paused = true
+			# TODO: handle exit game
+			return
+
+func load_debug_players():
+	var keys = [
+		{ "left": KEY_A, "item": KEY_S, "right": KEY_D },
+		{ "left": KEY_F, "item": KEY_G, "right": KEY_H },
+		{ "left": KEY_J, "item": KEY_K, "right": KEY_L },
+		{ "left": KEY_Q, "item": KEY_W, "right": KEY_E },
+		{ "left": KEY_U, "item": KEY_I, "right": KEY_O },
+		{ "left": KEY_Z, "item": KEY_X, "right": KEY_C },
+		{ "left": KEY_V, "item": KEY_B, "right": KEY_N },
+		{ "left": KEY_LEFT, "item": KEY_DOWN, "right": KEY_RIGHT },
+	]
+
+	var colors = Global.player_colors
+
+	Global.player_configs.clear()
+	for i in range(8):
+		Global.player_configs.append({
+			"name": "Player_%d" % i,
+			"left": keys[i]["left"],
+			"item": keys[i]["item"],
+			"right": keys[i]["right"],
+			"color": colors[i],
+			"gap_chance": 0.1
+		})
+		
+		# Update UI
+		var menu = get_tree().root.get_node("Root/Menu")
+		if menu:
+			menu.show_player_slot_overlay(i)

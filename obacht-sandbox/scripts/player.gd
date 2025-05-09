@@ -41,7 +41,8 @@ func _process(delta):
 		return
 	if Input.is_key_pressed(left_key):
 		rotation -= rotation_speed * delta
+		
 	if Input.is_key_pressed(right_key):
 		rotation += rotation_speed * delta
-
+		
 	position += Vector2.RIGHT.rotated(rotation) * speed * delta

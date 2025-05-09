@@ -15,15 +15,9 @@ var menu: Node = null
 	#Global.world = $World
 	#Global.menu = $Menu
 
-var player_colors: Array = [
-	Color(1, 0, 0),    # Red
-	Color(0, 0, 1),    # Blue
-	Color(0.5, 0.5, 0.5),    # Grey
-	Color(0, 1, 0),    # Green
-	Color(1, 0, 1),    # Magenta
-	Color(0, 1, 1),    # Cyan
-	Color(1, 0.5, 0),  # Orange
-	Color(0.5, 0, 0.5) # Purple
+var player_colors = [
+	Color.RED, Color.GREEN, Color.BLUE, Color.GOLDENROD,
+	Color.MAGENTA, Color.CYAN, Color.DARK_ORANGE, Color.GRAY
 ]
 
 func reset():

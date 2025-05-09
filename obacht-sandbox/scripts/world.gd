@@ -6,6 +6,12 @@ var gap_buffer # remaining iterations until next chance for gap
 
 var trail_image: Image
 var trail_texture: ImageTexture
+var ui_margin = 200 # for displacing playing field
+@onready var size = get_viewport().get_visible_rect().size
+#@onready var area = Vector2(size.y + ui_margin, size.y)
+var safety_margin = 50
+var existing_positions: Array = []
+var min_distance = 100  # Minimum distance between player spawns
 
 @onready var sprite_texture = preload("res://assets/player_head.png")
 
@@ -29,17 +35,17 @@ func _ready():
 	# Draw yellow playfield border (2px thick)
 	var border_color = Color.YELLOW
 	var thickness = 4
-	var margin = 200
+
 
 	for x in range(image_size.y):
 		for t in range(thickness):
-			trail_image.set_pixel(x + margin, t, border_color)  # Top
-			trail_image.set_pixel(x + margin, image_size.y - 1 - t, border_color)  # Bottom
+			trail_image.set_pixel(x + ui_margin, t, border_color)  # Top
+			trail_image.set_pixel(x + ui_margin, image_size.y - 1 - t, border_color)  # Bottom
 
 	for y in range(image_size.y):
 		for t in range(thickness):
-			trail_image.set_pixel(t + margin, y, border_color)  # Left
-			trail_image.set_pixel(image_size.y - 1 - t + margin, y, border_color)  # Right
+			trail_image.set_pixel(t + ui_margin, y, border_color)  # Left
+			trail_image.set_pixel(image_size.y - 1 - t + ui_margin, y, border_color)  # Right
 	
 	trail_texture = ImageTexture.create_from_image(trail_image)
 	canvas.texture = trail_texture
@@ -58,19 +64,40 @@ func spawn_players():
 		
 		var player = player_scene.instantiate()
 		player.name = config["name"]
+		player.position = get_safe_spawn_position(existing_positions, size, safety_margin)
+		existing_positions.append(player.position)
+		player.rotation = randf_range(0, 2 * PI)
 		add_child(player)
 		
-		Global.scoreboard[str(player.name)] = 0
-		
-		# TODO: replace with grid inside 'play zone' square
-		player.position = Vector2(
-			randi() % 800 + 100,
-			randi() % 400 + 100
-		)
-		
 		player.setup(config)
+		Global.scoreboard[str(player.name)] = 0
 		Global.players.append(player)
 		gap_chance = player.gap_chance
+
+
+
+func get_safe_spawn_position(existing_positions: Array, size: Vector2, margin: int, max_attempts := 50) -> Vector2:
+	var attempt = 0
+	while attempt < max_attempts:
+		var pos = Vector2(
+			randi_range(ui_margin + margin, size.y + ui_margin - margin),  # Use size.y + margin for right edge
+			randi_range(margin, size.y - margin)  # y stays the same
+		)
+
+		var too_close = false
+		for other in existing_positions:
+			if pos.distance_to(other) < min_distance:
+				too_close = true
+				break
+
+		if not too_close:
+			return pos
+
+		attempt += 1
+
+	return size / 2  # fallback
+
+
 
 func is_forward_collision(player, trail_image: Image) -> bool:
 	var trail_color = Color(0, 0, 0, 1)
