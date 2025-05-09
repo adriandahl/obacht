@@ -25,6 +25,22 @@ func _ready():
 
 	trail_image = Image.create(image_size.x, image_size.y, false, Image.FORMAT_RGBA8)
 	trail_image.fill(Color8(0, 0, 0, 255))
+	
+	# Draw yellow playfield border (2px thick)
+	var border_color = Color.YELLOW
+	var thickness = 4
+	var margin = 200
+
+	for x in range(image_size.y):
+		for t in range(thickness):
+			trail_image.set_pixel(x + margin, t, border_color)  # Top
+			trail_image.set_pixel(x + margin, image_size.y - 1 - t, border_color)  # Bottom
+
+	for y in range(image_size.y):
+		for t in range(thickness):
+			trail_image.set_pixel(t + margin, y, border_color)  # Left
+			trail_image.set_pixel(image_size.y - 1 - t + margin, y, border_color)  # Right
+	
 	trail_texture = ImageTexture.create_from_image(trail_image)
 	canvas.texture = trail_texture
 
@@ -46,6 +62,7 @@ func spawn_players():
 		
 		Global.scoreboard[str(player.name)] = 0
 		
+		# TODO: replace with grid inside 'play zone' square
 		player.position = Vector2(
 			randi() % 800 + 100,
 			randi() % 400 + 100

@@ -61,6 +61,24 @@ func _on_quit_to_menu():
 		player.queue_free()
 	Global.reset()
 	world.trail_image.fill(Color.BLACK)
+	
+		# Draw yellow playfield border (2px thick)
+	var size = get_viewport().get_visible_rect().size
+	var image_size = Vector2i(size.x, size.y)
+	var border_color = Color.YELLOW
+	var thickness = 4
+	var margin = 200
+
+	for x in range(image_size.y):
+		for t in range(thickness):
+			world.trail_image.set_pixel(x + margin, t, border_color)  # Top
+			world.trail_image.set_pixel(x + margin, image_size.y - 1 - t, border_color)  # Bottom
+
+	for y in range(image_size.y):
+		for t in range(thickness):
+			world.trail_image.set_pixel(t + margin, y, border_color)  # Left
+			world.trail_image.set_pixel(image_size.y - 1 - t + margin, y, border_color)  # Right
+	
 	world.trail_texture.update(world.trail_image)
 
 func _unhandled_input(event):
