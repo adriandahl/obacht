@@ -1,8 +1,6 @@
 extends Node2D
 
 @onready var player_scene = preload("res://scenes/player.tscn")
-
-var players = []
 var gap_chance
 var gap_buffer # remaining iterations until next chance for gap
 
@@ -32,8 +30,10 @@ func _ready():
 
 	
 	gap_buffer = 50
+	update_scoreboard()
 	
-	spawn_players()
+	#if Global.player_configs.any(func(p): return p != null):
+		#spawn_players()
 	
 func spawn_players():
 	for config in Global.player_configs:
@@ -52,7 +52,7 @@ func spawn_players():
 		)
 		
 		player.setup(config)
-		players.append(player)
+		Global.players.append(player)
 		gap_chance = player.gap_chance
 
 func is_forward_collision(player, trail_image: Image) -> bool:
@@ -81,7 +81,7 @@ func is_forward_collision(player, trail_image: Image) -> bool:
 
 func _process(delta):
 	queue_redraw()
-	for player in players:
+	for player in Global.players:
 		if not player.is_alive:
 			continue
 
@@ -133,10 +133,11 @@ func _process(delta):
 	trail_texture.update(trail_image)
 
 func update_scoreboard():
-	for player in players:
+	for player in Global.players:
 		if player.is_alive:
 			Global.scoreboard[player.name] += 10
 	$GameUI.refresh_labels()
+
 
 #func _draw():
 	#for point in debug_points:

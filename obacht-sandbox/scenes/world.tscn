@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bmlag182wkpqs"]
+[gd_scene load_steps=3 format=3 uid="uid://bmlag182wkpqs"]
 
 [ext_resource type="Script" uid="uid://cp1ffufxa2aoj" path="res://scripts/world.gd" id="1_nnsk1"]
 [ext_resource type="Script" uid="uid://cnd8ouqw5ggp4" path="res://scripts/game_ui.gd" id="2_4wyf3"]
-[ext_resource type="PackedScene" uid="uid://cqs56fynyhmlq" path="res://scenes/pause_menu.tscn" id="2_rwgxs"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_nnsk1")
@@ -11,15 +10,6 @@ script = ExtResource("1_nnsk1")
 z_index = -1
 offset_right = 40.0
 offset_bottom = 40.0
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-process_mode = 3
-layer = 100
-
-[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("2_rwgxs")]
-z_index = 100
-z_as_relative = false
-mouse_filter = 2
 
 [node name="GameUI" type="Control" parent="."]
 layout_mode = 3

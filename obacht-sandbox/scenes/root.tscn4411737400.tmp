@@ -6,13 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://cqs56fynyhmlq" path="res://scenes/pause_menu.tscn" id="4_sqa0i"]
 
 [node name="Root" type="Node"]
-process_mode = 3
 script = ExtResource("1_j5px3")
 
 [node name="Menu" parent="." instance=ExtResource("2_sqa0i")]
 
 [node name="World" parent="." instance=ExtResource("3_jh1ax")]
-process_mode = 1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 process_mode = 3

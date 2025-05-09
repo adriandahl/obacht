@@ -1,33 +1,10 @@
 extends Control
-@onready var menu = $Menu
-@onready var world = $World
 
-func _ready():
-	$AnimationPlayer.play("RESET")
+signal resume_requested
+signal quit_to_menu_requested
 
-func resume():
-	get_tree().paused = false
-	print("resumed!")
-	$AnimationPlayer.play_backwards("blur")
-	
-func pause():
-	get_tree().paused = true
-	print("paused!")
-	$AnimationPlayer.play("blur")
+func _on_continue_pressed():
+	resume_requested.emit()
 
-func testEsc():
-	pause() if get_tree().paused == false else resume()
-
-
-func _on_continue_pressed() -> void:
-	resume()
-
-func _on_quit_to_menu_pressed() -> void:
-	resume()
-	# TODO: handle 
-
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed:
-		if event.keycode == KEY_ESCAPE:
-			testEsc()
+func _on_quit_to_menu_pressed():
+	quit_to_menu_requested.emit()

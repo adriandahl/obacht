@@ -7,6 +7,8 @@ extends Control
 @onready var setup_popup = $TempPopup
 @onready var player_slot_scene = preload("res://scenes/player_slot.tscn")
 
+signal start_game_pressed
+
 
 var awaiting_key: String = ""
 var temp_config: Dictionary = {}
@@ -124,11 +126,7 @@ func _handle_key_capture(event):
 
 func _on_start_button_pressed():
 	print("Start game pressed!")
-	# Here you would load your main scene
-	for p in Global.player_configs:
-		if p != null:
-			get_tree().change_scene_to_file("res://scenes/world.tscn")
-			break
+	emit_signal("start_game_pressed")
 
 func get_slot_button(index: int) -> Button:
 	match index:
@@ -156,3 +154,18 @@ func _on_help_button_pressed() -> void:
 
 func _on_settings_button_pressed() -> void:
 	$SettingsPopup.popup_centered()
+
+func clear_player_slots():
+	for i in range(Global.player_configs.size()):
+		var button = get_slot_button(i)
+		if button:
+			button.text = "click to join"  # or whatever default
+
+			# Remove overlay if it exists
+			var old_overlay = button.get_node_or_null("PlayerSlotOverlay")
+			if old_overlay:
+				old_overlay.queue_free()
+
+	# Reset config data
+	Global.player_configs.fill(null)
+	Global.scoreboard.clear()

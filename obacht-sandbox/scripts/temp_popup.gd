@@ -144,6 +144,7 @@ func _on_key_button_pressed(key):
 			awaiting_key = "right"
 
 func open_with_config():
+	print(Global.player_configs)
 	var config = Global.player_configs[Global.current_slot_index]
 	if config != null:
 		temp_config = config.duplicate()
