@@ -78,7 +78,6 @@ func is_forward_collision(player, trail_image: Image) -> bool:
 	
 	return false
 
-
 func _process(delta):
 	queue_redraw()
 	for player in Global.players:

@@ -75,13 +75,31 @@ func refresh_labels():
 
 		var player_name = config["name"]
 		var score = Global.scoreboard.get(player_name, 0)
+		print(label_map)
 		var label = label_map.get(player_name, null)
 		if label:
 			label.text = "%s: %d" % [player_name, score]
 			label.show()
+			print("added score")
 
 func get_player_color(player_name: String) -> Color:
 	for config in Global.player_configs:
 		if config and config["name"] == player_name:
 			return config["color"]
 	return Color.WHITE
+
+func build_label_map():
+	label_map.clear()
+	for i in range(Global.player_configs.size()):
+		var config = Global.player_configs[i]
+		if not config:
+			continue
+		var player_name = config["name"]
+		var label = scoreboard_labels[i]
+		label_map[player_name] = label
+
+func clear_scoreboard_ui():
+	label_map.clear()
+	for label in scoreboard_labels:
+		label.text = ""
+		label.hide()

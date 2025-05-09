@@ -101,11 +101,11 @@ func refresh_color_buttons(selected_index: int = -1):
 				button.add_child(lock_sprite)
 		else:
 			button.disabled = false
-			# 🔥 If lock still exists, remove it
+			# if lock still exists, remove it
 			if button.has_node("LockIcon"):
 				button.get_node("LockIcon").queue_free()
 
-			# Selection highlight
+			# selection highlight
 			if i == selected_index:
 				style.border_color = Color.WHITE
 				style.set_border_width_all(4)
@@ -113,7 +113,7 @@ func refresh_color_buttons(selected_index: int = -1):
 				style.border_color = Color.TRANSPARENT
 				style.set_border_width_all(0)
 		
-		# Apply styles to all states
+		# apply styles to all states
 		button.add_theme_stylebox_override("normal", style)
 		button.add_theme_stylebox_override("hover", style)
 		button.add_theme_stylebox_override("pressed", style)
@@ -171,7 +171,7 @@ func open_with_config():
 	item_key_button.text = OS.get_keycode_string(temp_config["item"])
 	right_key_button.text = OS.get_keycode_string(temp_config["right"])
 	
-		# 🛠 Find selected color index
+		# find selected color index
 	var selected_color_index = -1
 	for i in range(Global.player_colors.size()):
 		if Global.player_colors[i] == temp_config["color"]:

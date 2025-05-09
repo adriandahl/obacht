@@ -32,6 +32,7 @@ func start_game():
 			world.show()
 			await get_tree().process_frame  # Let world _ready() run
 			world.spawn_players()  # Manually call it here
+			$World/GameUI.refresh_labels()
 			menu.hide()
 			print("PLAYER SPAWN")
 			Global.is_gameplay = true
@@ -39,13 +40,16 @@ func start_game():
 	print("No valid players, game not started")
 
 func _on_start_game_pressed():
+	$World/GameUI.clear_scoreboard_ui()
+	$World/GameUI.build_label_map()
+	$World/GameUI.refresh_labels()
 	start_game()
 
 
 func _on_resume_requested():
 	get_tree().paused = false
 	anim_player.play_backwards("blur")
-	
+
 
 func _on_quit_to_menu():
 	anim_player.play_backwards("blur")
